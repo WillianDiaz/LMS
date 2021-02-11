@@ -65,7 +65,7 @@ namespace IdentitySample.Controllers
         {
             if (!ModelState.IsValid)
             {
-                return View(model);
+                return View(model ?? new LoginViewModel());
             }
 
             // This doen't count login failures towards lockout only two factor authentication

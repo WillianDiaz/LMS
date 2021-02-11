@@ -292,7 +292,7 @@ var handleDashboardGritterNotification = function() {
             $.gritter.add({
                 title: 'Bienvenido a LMS!',
                 text: 'El equipo de desarrollo te da la bienvenida al DEMO de Learning Managment Software.',
-                image: 'assets/img/user.jpg',
+                image: '/assets/img/user.jpg',
                 sticky: false,
                 time: 5000,
                 class_name: 'my-sticky-class'

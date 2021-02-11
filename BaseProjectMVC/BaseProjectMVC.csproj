@@ -175,6 +175,11 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202102111456189_Initial.cs" />
+    <Compile Include="Migrations\202102111456189_Initial.Designer.cs">
+      <DependentUpon>202102111456189_Initial.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\AdminViewModel.cs" />
     <Compile Include="Models\IdentityModels.cs" />
@@ -6433,6 +6438,11 @@
     <Content Include="Views\Shared\Partial\_Header.cshtml" />
     <Content Include="Views\Shared\Partial\_Sidebar.cshtml" />
     <Content Include="Views\Shared\Partial\_ThemePanel.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\202102111456189_Initial.resx">
+      <DependentUpon>202102111456189_Initial.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
