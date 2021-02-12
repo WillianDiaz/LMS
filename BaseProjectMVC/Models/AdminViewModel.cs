@@ -14,6 +14,7 @@ namespace IdentitySample.Models
         public string Name { get; set; }
 
         [Required(AllowEmptyStrings = false)]
+        [StringLength(500)]
         [Display(Name= "Descripción")]
         public string Descripcion { get; set; }
     }

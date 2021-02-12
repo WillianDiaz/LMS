@@ -45,6 +45,8 @@ namespace IdentitySample.Models
         public ApplicationRole() : base() { }
         public ApplicationRole(string name) : base(name){ }
 
+        [Required]
+        [StringLength(500)]
         public string Descripcion { get; set; }
     }
 
