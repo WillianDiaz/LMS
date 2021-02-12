@@ -2,6 +2,7 @@
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
+using System;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Web;
@@ -155,7 +156,7 @@ namespace IdentitySample.Controllers
                     PrimerApellido = model.PrimerApellido,
                     SegundoApellido = model.SegundoApellido,
                     Identidad = model.Identidad,
-                    FechaNacimiento = model.FechaNacimiento,
+                    FechaNacimiento = DateTime.Now,
                     UserName = model.PrimerNombre + " " + model.PrimerApellido,
                     Email = model.Email 
                 };
