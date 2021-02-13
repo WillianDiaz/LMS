@@ -71,7 +71,7 @@ namespace IdentitySample.Controllers
 
             // This doen't count login failures towards lockout only two factor authentication
             // To enable password failures to trigger lockout, change to shouldLockout: true
-            var result = await SignInManager.PasswordSignInAsync(model.Email, model.Password, model.RememberMe, shouldLockout: false);
+            var result = await SignInManager.PasswordSignInAsync(model.UserName, model.Password, model.RememberMe, shouldLockout: false);
             switch (result)
             {
                 case SignInStatus.Success:
@@ -148,31 +148,42 @@ namespace IdentitySample.Controllers
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Register(RegisterViewModel model)
         {
-            if (ModelState.IsValid)
+            try
             {
-                var user = new ApplicationUser {
-                    PrimerNombre = model.PrimerNombre,
-                    SegundoNombre = model.SegundoNombre,
-                    PrimerApellido = model.PrimerApellido,
-                    SegundoApellido = model.SegundoApellido,
-                    Identidad = model.Identidad,
-                    FechaNacimiento = DateTime.Now,
-                    UserName = model.PrimerNombre + " " + model.PrimerApellido,
-                    Email = model.Email 
-                };
-
-                var result = await UserManager.CreateAsync(user, model.Password);
-
-                if (result.Succeeded)
+                if (ModelState.IsValid)
                 {
-                    var code = await UserManager.GenerateEmailConfirmationTokenAsync(user.Id);
-                    var callbackUrl = Url.Action("ConfirmEmail", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
-                    await UserManager.SendEmailAsync(user.Id, "Confirma tu cuente", "Por favor confirma tu cuenta dando click en este link: <a href=\"" + callbackUrl + "\">link</a>");
-                    ViewBag.Link = callbackUrl;
-                    return View("DisplayEmail");
+                    model.FechaNacimiento = DateTime.Now;
+
+                    var user = new ApplicationUser
+                    {
+                        PrimerNombre = model.PrimerNombre,
+                        SegundoNombre = model.SegundoNombre,
+                        PrimerApellido = model.PrimerApellido,
+                        SegundoApellido = model.SegundoApellido,
+                        Identidad = model.Identidad,
+                        FechaNacimiento = model.FechaNacimiento,
+                        UserName = (model.PrimerNombre + "." + model.PrimerApellido).ToLower(),
+                        Email = model.Email
+                    };
+
+                    var result = await UserManager.CreateAsync(user, model.Password);
+
+                    if (result.Succeeded)
+                    {
+                        var code = await UserManager.GenerateEmailConfirmationTokenAsync(user.Id);
+                        var callbackUrl = Url.Action("ConfirmEmail", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
+                        await UserManager.SendEmailAsync(user.Id, "Confirma tu cuente", "Por favor confirma tu cuenta dando click en este link: <a href=\"" + callbackUrl + "\">link</a>");
+                        ViewBag.Link = callbackUrl;
+                        return View("DisplayEmail");
+                    }
+                    AddErrors(result);
                 }
-                AddErrors(result);
             }
+            catch (Exception ex)
+            {
+                ex.Message.ToString();
+            }
+            
 
             // If we got this far, something failed, redisplay form
             return View(model);
@@ -210,7 +221,7 @@ namespace IdentitySample.Controllers
         {
             if (ModelState.IsValid)
             {
-                var user = await UserManager.FindByNameAsync(model.Email);
+                var user = await UserManager.FindByEmailAsync(model.Email);
                 if (user == null || !(await UserManager.IsEmailConfirmedAsync(user.Id)))
                 {
                     // Don't reveal that the user does not exist or is not confirmed
@@ -257,7 +268,7 @@ namespace IdentitySample.Controllers
             {
                 return View(model);
             }
-            var user = await UserManager.FindByNameAsync(model.Email);
+            var user = await UserManager.FindByEmailAsync(model.Email);
             if (user == null)
             {
                 // Don't reveal that the user does not exist

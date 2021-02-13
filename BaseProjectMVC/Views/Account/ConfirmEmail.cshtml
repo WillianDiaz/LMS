@@ -1,5 +1,5 @@
 ﻿@{
-    Layout = null
+    Layout = null;
 }
 
 <!DOCTYPE html>
@@ -9,7 +9,7 @@
 <!--<![endif]-->
 <head>
     <meta charset="utf-8" />
-    <title>LMS | Confirmación de correo</title>
+    <title>LMS | Correo confirmado</title>
     <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" name="viewport" />
     <meta content="Sistema de administración de aprendizaje" name="description" />
     <meta content="Willian Díaz" name="author" />
@@ -63,10 +63,10 @@
                 <div class="login-header">
                     <div class="brand">
                         <span class="logo"></span> LMS
-                        <small>Confirmación de correo electrónico</small>
+                        <small>Confirmación de correo electrónico exitosa</small>
                     </div>
                     <div class="icon">
-                        <i class="material-icons">lock</i>
+                        <i class="material-icons">mark_email_read</i>
                     </div>
                 </div>
                 <!-- end login-header -->
@@ -75,7 +75,7 @@
 
                     Gracias por confirmar tu correo. Por favor @Html.ActionLink("Haz click aquí para iniciar sesión", "Login", "Account", routeValues: null, htmlAttributes: new { id = "loginLink" })
 
-                    
+
                     <hr />
                     <p class="text-center">
                         &copy; LMS todos los derechos reservados 2021
