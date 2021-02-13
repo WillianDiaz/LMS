@@ -6443,6 +6443,7 @@
     <Content Include="Views\Shared\Partial\_Header.cshtml" />
     <Content Include="Views\Shared\Partial\_Sidebar.cshtml" />
     <Content Include="Views\Shared\Partial\_ThemePanel.cshtml" />
+    <None Include="Properties\PublishProfiles\CustomProfile.pubxml" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Migrations\202102111456189_Initial.resx">
